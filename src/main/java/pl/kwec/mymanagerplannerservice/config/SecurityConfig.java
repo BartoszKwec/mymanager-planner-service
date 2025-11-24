@@ -22,12 +22,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/tasks/**").authenticated()
                         .anyRequest().permitAll()
-                )
-                .addFilterBefore(userIdAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                );
+
         return http.build();
     }
 }
